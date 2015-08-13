@@ -1,7 +1,5 @@
 package com.codepath.apps.twitterclient.models;
 
-import android.util.Log;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 /**
@@ -39,7 +37,7 @@ public class User{
             u.name = json.getString("name");
             u.screenName = json.getString("screen_name");
             u.profileImageUrl = json.getString("profile_image_url");
-            Log.d("DEBUG", "uid: " + u.uid + "uname: " + u.name + "usName: " + u.screenName);
+            //Log.d("DEBUG", "uid: " + u.uid + "uname: " + u.name + "usName: " + u.screenName);
         } catch (JSONException e) {
             e.printStackTrace();
         }

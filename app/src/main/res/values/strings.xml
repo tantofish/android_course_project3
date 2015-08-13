@@ -4,7 +4,7 @@
     <string name="app_name">Twitter Yu</string>
 
     <string name="activity_title_login">Login</string>
-    <string name="activity_title_timeline">Home Timeline</string>
+    <string name="activity_title_timeline">　　Home Timeline</string>
 
     <string name="login_label">Connect with Twitter</string>
     <string name="title_activity_timeline">Home Timeline</string>

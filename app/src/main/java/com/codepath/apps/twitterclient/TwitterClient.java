@@ -36,16 +36,28 @@ public class TwitterClient extends OAuthBaseClient {
 	// https://api.twitter.com/1.1/statuses/home_timeline.json
 	// HomeTimeLine = get us the home timeline data
 
-	public void getHomeTimeline(AsyncHttpResponseHandler handler) {
+	public void getHomeTimeline(AsyncHttpResponseHandler handler, int count, int since) {
 		String apiUrl = getApiUrl("statuses/home_timeline.json");
 		RequestParams params = new RequestParams();
-		params.put("count", 50);
-		params.put("since_id", 1);
+		params.put("count", count);
+		params.put("since_id", since);
 		// Execute teh Request
 		getClient().get(apiUrl, params, handler);
 	}
 
 	// Composing a Tweet
+	public void getAccountCredentials(AsyncHttpResponseHandler handler) {
+		String apiUrl = getApiUrl("account/verify_credentials.json");
+		RequestParams params = new RequestParams();
+		getClient().get(apiUrl, params, handler);
+	}
+
+	public void postTweet(AsyncHttpResponseHandler handler, String message) {
+		String apiUrl = getApiUrl("statuses/update.json");
+		RequestParams params = new RequestParams();
+		params.put("status", "Test Api: " + message);
+		getClient().post(apiUrl, params, handler);
+	}
 
 
 

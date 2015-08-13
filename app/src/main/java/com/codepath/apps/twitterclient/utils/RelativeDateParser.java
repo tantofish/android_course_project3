@@ -12,6 +12,20 @@ import java.text.ParseException;
 public class RelativeDateParser {
     // getRelativeTimeAgo("Mon Apr 01 21:16:23 +0000 2014");
 
+    public static String reFormatTime(String rawDate) {
+        String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
+        SimpleDateFormat sf = new SimpleDateFormat(twitterFormat);
+        SimpleDateFormat out = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+        String output;
+        try {
+            output = out.format(sf.parse(rawDate));
+
+        } catch (ParseException e) {
+            return "";
+        }
+
+        return output;
+    }
     public static String getRelativeTime(String rawJsonDate) {
         String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
         SimpleDateFormat sf = new SimpleDateFormat(twitterFormat, Locale.ENGLISH);

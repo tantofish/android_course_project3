@@ -29,6 +29,9 @@ public class Tweet {
     private long uid;   // unique id for the tweet
     private User user;
 
+    private String mediaUrl;
+    private String mediaType;
+
     public User getUser() {
         return user;
     }
@@ -53,6 +56,14 @@ public class Tweet {
         return favoriteCount;
     }
 
+    public String getMediaUrl() {
+        return mediaUrl;
+    }
+
+    public String getMediaType() {
+        return mediaType;
+    }
+
     public boolean isRetweeted() {
         return retweeted;
     }
@@ -62,6 +73,14 @@ public class Tweet {
     public static Tweet fromJSON(JSONObject jObj) {
         Tweet tweet = new Tweet();
 
+
+        try {
+            tweet.mediaUrl = jObj.getJSONObject("entities").getJSONArray("media").getJSONObject(0).getString("media_url");
+            tweet.mediaType = jObj.getJSONObject("entities").getJSONArray("media").getJSONObject(0).getString("type");
+        } catch (JSONException e) {
+            tweet.mediaUrl = "";
+            tweet.mediaType = "";
+        }
 
         try {
             tweet.retweetCount = jObj.getInt("retweet_count");

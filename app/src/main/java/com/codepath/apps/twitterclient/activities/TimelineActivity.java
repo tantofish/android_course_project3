@@ -2,10 +2,13 @@ package com.codepath.apps.twitterclient.activities;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -13,6 +16,7 @@ import com.codepath.apps.twitterclient.R;
 import com.codepath.apps.twitterclient.TwitterApplication;
 import com.codepath.apps.twitterclient.TwitterClient;
 import com.codepath.apps.twitterclient.adapters.TweetsArrayAdapter;
+import com.codepath.apps.twitterclient.fragments.DetailFragment;
 import com.codepath.apps.twitterclient.fragments.PostTweetFragment;
 import com.codepath.apps.twitterclient.interfaces.EndlessScrollListener;
 import com.codepath.apps.twitterclient.models.Account;
@@ -30,42 +34,82 @@ public class TimelineActivity extends ActionBarActivity {
     private ArrayList<Tweet> tweets;
     private TweetsArrayAdapter aTweets;
     private ListView lvTweets;
+    private SwipeRefreshLayout swipeContainer;
+
     PostTweetFragment tweetFragment;
+    DetailFragment detailFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
+        setupViews();
+        setupListeners();
 
-        lvTweets = (ListView) findViewById(R.id.lvTweets);
+
+        client = TwitterApplication.getRestClient();
         tweets = new ArrayList<>();
         aTweets = new TweetsArrayAdapter(this, tweets);
-
         lvTweets.setAdapter(aTweets);
-        client = TwitterApplication.getRestClient();
 
+        getAccountInfo();
+        populateTimeline(25, 1);
+    }
+
+    private void setupViews() {
+        // Pull to Refresh
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
+        // Custom View Adapter setting pattern
+        lvTweets = (ListView) findViewById(R.id.lvTweets);
+
+        // Post Tweet Fragment
+        tweetFragment = PostTweetFragment.newInstance(this);
+        // Detail View Fragment
+    }
+
+    private void setupListeners() {
         lvTweets.setOnScrollListener(new EndlessScrollListener() {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
                 populateTimeline(25, totalItemsCount);
             }
         });
-        getAccountInfo();
-        populateTimeline(25, 1);
-    }
 
+        lvTweets.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("DEBUG", "position: " + position + " id: " + id);
+                FragmentManager fm = getSupportFragmentManager();
+                detailFragment = DetailFragment.newInstance(getBaseContext(), tweets.get(position));
+                detailFragment.show(fm, "fragment_detail");
+            }
+        });
+
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                populateTimeline(25, 1, true);
+            }
+        });
+    }
     private void getAccountInfo() {
         client.getAccountCredentials(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject json) {
                 Account.fromJSON(json);
-                Log.d("DEBUG", json.toString());
                 Log.d("DEBUG", "Send getAccountCredentials to API on SUCCESS!!!");
+                Log.d("DEBUG", json.toString());
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject err) {
-                Log.d("DEBUG", "Send getAccountCredentials to API on FAILED!!!" + err.toString());
+                Log.d("DEBUG", "Send getAccountCredentials to API on FAILED!!!");
+                Log.d("DEBUG", err.toString());
             }
         });
     }
@@ -91,6 +135,8 @@ public class TimelineActivity extends ActionBarActivity {
 
                 Log.d("DEBUG", json.toString());
                 Log.d("DEBUG", "Send getHomeTimeline to API on SUCCESS!!!");
+
+                swipeContainer.setRefreshing(false);
                 //Tweet.fromJSON(json);
             }
 
@@ -154,7 +200,6 @@ public class TimelineActivity extends ActionBarActivity {
 
     private void showTweetOverlay() {
         FragmentManager fm = getSupportFragmentManager();
-        tweetFragment = PostTweetFragment.newInstance(this);
         tweetFragment.show(fm, "fragment_post_tweet");
     }
 

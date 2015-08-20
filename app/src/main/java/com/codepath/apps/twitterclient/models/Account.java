@@ -10,58 +10,15 @@ import org.json.JSONObject;
  */
 
 // Singleton
-public class Account {
-    private long id;
-    private String name;
-    private String screenName;
-    private String profileImageUrl;
-    private String profileBannerUrl;
-    private int followersCount;
-    private int friendsCount;
-    private String location;
-    private String display_url;
+public class Account extends User{
 
-    public long getId() {
-        return id;
-    }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getScreenName() {
-        return screenName;
-    }
-
-    public String getProfileImageUrl() {
-        return profileImageUrl;
-    }
-
-    public String getProfileBannerUrl() {
-        return profileBannerUrl;
-    }
-
-    public int getFollowersCount() {
-        return followersCount;
-    }
-
-    public int getFriendsCount() {
-        return friendsCount;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public String getDisplay_url() {
-        return display_url;
-    }
+    private static Account account = new Account();
 
     public static Account getAccount() {
         return account;
     }
 
-    private static Account account = new Account();
     public static Account getInstance() {
         return account;
     }

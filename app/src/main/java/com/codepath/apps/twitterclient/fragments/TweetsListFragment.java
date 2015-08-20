@@ -3,12 +3,16 @@ package com.codepath.apps.twitterclient.fragments;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.codepath.apps.twitterclient.R;
+import com.codepath.apps.twitterclient.activities.TimelineActivity;
+import com.codepath.apps.twitterclient.interfaces.EndlessScrollListener;
 import com.codepath.apps.twitterclient.utils.TwitterApplication;
 import com.codepath.apps.twitterclient.utils.TwitterClient;
 import com.codepath.apps.twitterclient.adapters.TweetsArrayAdapter;
@@ -72,6 +76,31 @@ public class TweetsListFragment extends Fragment {
 
     public void populateTimeline(int count, int since, final boolean clear){
         // need to be overrided in the child fragments
+    }
+
+    protected void setupListeners() {
+        lvTweets.setOnScrollListener(new EndlessScrollListener() {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                populateTimeline(25, totalItemsCount);
+            }
+        });
+
+        lvTweets.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("DEBUG", "position: " + position + " id: " + id);
+
+                ((TimelineActivity) getActivity()).showDetailOverlay(tweets.get(position));
+            }
+        });
+
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                rePopulateTimeline(25, 1);
+            }
+        });
     }
 
     public void add(int index, Tweet tweet) {

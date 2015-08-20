@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
-import com.codepath.apps.twitterclient.activities.TimelineActivity;
+import com.codepath.apps.twitterclient.activities.ProfileActitivity;
 import com.codepath.apps.twitterclient.interfaces.EndlessScrollListener;
 import com.codepath.apps.twitterclient.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -49,7 +49,8 @@ public class UserTimelineFragment extends TweetsListFragment{
         populateTimeline(25, 1);
     }
 
-    private void setupListeners() {
+    // Dirty Code Here, fixme
+    protected void setupListeners() {
         lvTweets.setOnScrollListener(new EndlessScrollListener() {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
@@ -62,7 +63,7 @@ public class UserTimelineFragment extends TweetsListFragment{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d("DEBUG", "position: " + position + " id: " + id);
 
-                ((TimelineActivity) getActivity()).showDetailOverlay(tweets.get(position));
+                ((ProfileActitivity) getActivity()).showDetailOverlay(tweets.get(position));
             }
         });
 

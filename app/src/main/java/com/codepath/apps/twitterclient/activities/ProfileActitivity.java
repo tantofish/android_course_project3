@@ -1,6 +1,8 @@
 package com.codepath.apps.twitterclient.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -9,8 +11,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codepath.apps.twitterclient.R;
+import com.codepath.apps.twitterclient.fragments.DetailFragment;
 import com.codepath.apps.twitterclient.fragments.UserTimelineFragment;
 import com.codepath.apps.twitterclient.models.Account;
+import com.codepath.apps.twitterclient.models.Tweet;
+import com.codepath.apps.twitterclient.models.User;
 import com.codepath.apps.twitterclient.utils.RoundCornerTransformationEx;
 import com.squareup.picasso.Picasso;
 
@@ -26,17 +31,27 @@ public class ProfileActitivity extends ActionBarActivity {
     TextView tvFriendsCount;
     TextView tvFollowersCount;
 
-    Account account;
+    User account;
+    User user;
+    private DetailFragment detailFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        account = Account.getInstance();
+
+
+        Intent i = this.getIntent();
+        account = (User) i.getSerializableExtra("user");
+
+        if (account == null) {
+            account = (User) Account.getInstance();
+        }
+
+
 
         setupViews();
-
         if (savedInstanceState == null) {
             UserTimelineFragment fgUserTimeline = (UserTimelineFragment) UserTimelineFragment.newInstance(account.getScreenName());
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -44,6 +59,7 @@ public class ProfileActitivity extends ActionBarActivity {
             ft.replace(R.id.flContainer, fgUserTimeline);
             ft.commit();
         }
+
         getSupportActionBar().hide();
     }
 
@@ -57,17 +73,21 @@ public class ProfileActitivity extends ActionBarActivity {
         tvFriendsCount =  (TextView) findViewById(R.id.tvFriendsCount);
         tvFollowersCount =  (TextView) findViewById(R.id.tvFollowersCount);
 
-        Picasso.with(getBaseContext())
-                .load(account.getProfileImageUrl())
-                .error(R.drawable.profile_error)
-                .placeholder(R.drawable.ic_profile_clicked)
-                .transform(new RoundCornerTransformationEx())
-                .into(ivProfile);
-        Picasso.with(getBaseContext())
-                .load(account.getProfileBannerUrl())
-                .error(R.drawable.profile_error)
-                .placeholder(R.drawable.placeholder_pic)
-                .into(ivBanner);
+        if (account.getProfileImageUrl() != null) {
+            Picasso.with(getBaseContext())
+                    .load(account.getProfileImageUrl())
+                    .error(R.drawable.profile_error)
+                    .placeholder(R.drawable.ic_profile_clicked)
+                    .transform(new RoundCornerTransformationEx())
+                    .into(ivProfile);
+        }
+        if (account.getProfileBannerUrl() != null) {
+            Picasso.with(getBaseContext())
+                    .load(account.getProfileBannerUrl())
+                    .error(R.drawable.profile_error)
+                    .placeholder(R.drawable.placeholder_pic)
+                    .into(ivBanner);
+        }
         tvLocation.setText(account.getLocation());
         tvUserName.setText(account.getName());
         tvName.setText(account.getScreenName());
@@ -97,5 +117,11 @@ public class ProfileActitivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void showDetailOverlay(Tweet tweet) {
+        FragmentManager fm = getSupportFragmentManager();
+        detailFragment = DetailFragment.newInstance(getBaseContext(), tweet);
+        detailFragment.show(fm, "fragment_detail");
     }
 }

@@ -1,15 +1,11 @@
 package com.codepath.apps.twitterclient.fragments;
 
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 
-import com.codepath.apps.twitterclient.activities.TimelineActivity;
-import com.codepath.apps.twitterclient.interfaces.EndlessScrollListener;
 import com.codepath.apps.twitterclient.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -36,30 +32,7 @@ public class MentionsTimelineFragment extends TweetsListFragment {
         populateTimeline(25, 1);
     }
 
-    private void setupListeners() {
-        lvTweets.setOnScrollListener(new EndlessScrollListener() {
-            @Override
-            public void onLoadMore(int page, int totalItemsCount) {
-                populateTimeline(25, totalItemsCount);
-            }
-        });
 
-        lvTweets.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("DEBUG", "position: " + position + " id: " + id);
-
-                ((TimelineActivity) getActivity()).showDetailOverlay(tweets.get(position));
-            }
-        });
-
-        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                rePopulateTimeline(25, 1);
-            }
-        });
-    }
 
     // Send API
     // Fill listview

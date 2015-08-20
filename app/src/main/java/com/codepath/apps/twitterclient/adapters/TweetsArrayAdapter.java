@@ -1,6 +1,8 @@
 package com.codepath.apps.twitterclient.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codepath.apps.twitterclient.R;
+import com.codepath.apps.twitterclient.activities.ProfileActitivity;
 import com.codepath.apps.twitterclient.models.Tweet;
 import com.codepath.apps.twitterclient.utils.RelativeDateParser;
 import com.codepath.apps.twitterclient.utils.RoundCornerTransformation;
@@ -29,7 +32,7 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet>{
 
     // Override and setup custom template
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         // 1 get the tweet
         Tweet tweet = getItem(position);
         // 2 find or inflate the template
@@ -64,6 +67,19 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet>{
                 .into(ivProfileImage);
         // 5 return the view to be inserted into the list
 
+        ivProfileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("DEBUG", "CLICLEDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
+                Log.d("DEBUG", getItem(position).getUser().getScreenName());
+                Intent i = new Intent(getContext(), ProfileActitivity.class);
+                //Bundle b = new Bundle();
+                //b.putSerializable("user", getItem(position).getUser());
+                //i.putExtras(b);
+                i.putExtra("user", getItem(position).getUser());
+                getContext().startActivity(i);
+            }
+        });
         return convertView;
     }
 }

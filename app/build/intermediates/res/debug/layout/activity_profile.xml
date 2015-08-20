@@ -84,11 +84,12 @@
             android:layout_height="15dp"
             android:id="@+id/ivLinkIcon"
             android:src="@drawable/ic_link"
-            android:layout_alignTop="@+id/tvLocation"
             android:layout_toRightOf="@+id/tvLocation"
             android:layout_toEndOf="@+id/ivLocationIcon"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="5dp" />
+            android:layout_marginRight="5dp"
+            android:layout_below="@+id/ivLocationIcon"
+            android:layout_alignTop="@+id/ivLocationIcon" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -99,7 +100,8 @@
             android:layout_toRightOf="@+id/ivLinkIcon"
             android:layout_toEndOf="@+id/ivLinkIcon"
             android:textColor="@color/twitter_blue_d"
-            android:layout_alignBottom="@+id/ivLinkIcon" />
+            android:layout_alignBottom="@+id/tvLocation"
+            android:layout_alignTop="@+id/tvLocation" />
 
         <TextView
             android:layout_width="wrap_content"

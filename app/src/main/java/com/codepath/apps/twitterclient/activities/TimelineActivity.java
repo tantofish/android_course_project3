@@ -45,8 +45,10 @@ public class TimelineActivity extends ActionBarActivity {
 
         // access fragment
         if (savedInstanceState == null) {
-            //homeTimelineFragment = (HomeTimelineFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_timeline);
-            //mentionsTimelineFragment = (MentionsTimelineFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_timeline);
+            homeTimelineFragment = new HomeTimelineFragment();
+            //(HomeTimelineFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_timeline);
+            mentionsTimelineFragment = new MentionsTimelineFragment();
+            //(MentionsTimelineFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_timeline);
         }
 
         //setupListeners();
@@ -90,7 +92,9 @@ public class TimelineActivity extends ActionBarActivity {
                 Log.d("DEBUG", json.toString());
                 Log.d("DEBUG", "Send postTweet to API on SUCCESS!!!");
                 Tweet mTweet = Tweet.fromJSON(json);
-                homeTimelineFragment.add(0, mTweet);
+                //homeTimelineFragment.add(0, mTweet);
+                homeTimelineFragment.rePopulateTimeline(25, 1);
+                mentionsTimelineFragment.rePopulateTimeline(25, 1);
                 Toast.makeText(getApplicationContext(), "Post Tweet Succeed", Toast.LENGTH_SHORT).show();
             }
 
@@ -131,9 +135,9 @@ public class TimelineActivity extends ActionBarActivity {
         @Override
         public Fragment getItem(int position) {
             if (position == 0) {
-                return new HomeTimelineFragment();
+                return homeTimelineFragment;
             } else if(position == 1) {
-                return new MentionsTimelineFragment();
+                return mentionsTimelineFragment;
             } else {
                 return null;
             }

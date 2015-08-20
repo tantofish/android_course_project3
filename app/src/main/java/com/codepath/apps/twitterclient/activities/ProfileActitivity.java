@@ -40,8 +40,6 @@ public class ProfileActitivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-
-
         Intent i = this.getIntent();
         account = (User) i.getSerializableExtra("user");
 
@@ -90,7 +88,7 @@ public class ProfileActitivity extends ActionBarActivity {
         }
         tvLocation.setText(account.getLocation());
         tvUserName.setText(account.getName());
-        tvName.setText(account.getScreenName());
+        tvName.setText("@"+account.getScreenName());
         tvDisplayUrl.setText(account.getDisplay_url());
         tvFriendsCount.setText(Integer.toString(account.getFriendsCount()));
         tvFollowersCount.setText(Integer.toString(account.getFollowersCount()));

@@ -5,6 +5,16 @@
 
     <item android:id="@+id/post_tweet"
         android:title="@string/action_settings"
-        android:orderInCategory="100" app:showAsAction="ifRoom"
-        android:icon="@drawable/ic_post_tweet"/>
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_post_tweet"
+        android:onClick="onPostTweet"/>
+
+    <item android:id="@+id/my_profile"
+        android:title="My Profile"
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_profile"
+        android:onClick="onProfileView"
+        />
 </menu>

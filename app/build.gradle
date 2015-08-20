@@ -37,4 +37,7 @@ dependencies {
     // http://guides.codepath.com/android/Implementing-Pull-to-Refresh-Guide
     compile 'com.android.support:support-v4:22.2.1'
 
+    // for 'sliding view pager'
+    compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
+
 }

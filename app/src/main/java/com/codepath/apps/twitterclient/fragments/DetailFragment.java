@@ -16,8 +16,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codepath.apps.twitterclient.R;
-import com.codepath.apps.twitterclient.TwitterApplication;
-import com.codepath.apps.twitterclient.TwitterClient;
+import com.codepath.apps.twitterclient.utils.TwitterApplication;
+import com.codepath.apps.twitterclient.utils.TwitterClient;
 import com.codepath.apps.twitterclient.models.Tweet;
 import com.codepath.apps.twitterclient.models.User;
 import com.codepath.apps.twitterclient.utils.RelativeDateParser;

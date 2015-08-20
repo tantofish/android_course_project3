@@ -3,4 +3,9 @@
     <color name="twitter_blue">#4099FF</color>
     <color name="twitter_blue_l">#48A7FF</color>
     <color name="twitter_blue_d">#1871D7</color>
+    <color name="gray1">#DDDDDD</color>
+    <color name="gray2">#B0B0B0</color>
+    <color name="gray3">#808080</color>
+    <color name="gray4">#404040</color>
+    <color name="gray5">#202020</color>
 </resources>

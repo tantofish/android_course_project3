@@ -1,4 +1,4 @@
-package com.codepath.apps.twitterclient;
+package com.codepath.apps.twitterclient.utils;
 
 import android.content.Context;
 
@@ -36,12 +36,32 @@ public class TwitterClient extends OAuthBaseClient {
 	// https://api.twitter.com/1.1/statuses/home_timeline.json
 	// HomeTimeLine = get us the home timeline data
 
+
 	public void getHomeTimeline(AsyncHttpResponseHandler handler, int count, int since) {
 		String apiUrl = getApiUrl("statuses/home_timeline.json");
 		RequestParams params = new RequestParams();
 		params.put("count", count);
 		params.put("since_id", since);
-		// Execute teh Request
+		// Execute the Request
+		getClient().get(apiUrl, params, handler);
+	}
+
+	public void getMentionsTimeline(AsyncHttpResponseHandler handler, int count, int since) {
+		String apiUrl = getApiUrl("statuses/mentions_timeline.json");
+		RequestParams params = new RequestParams();
+		params.put("count", count);
+		params.put("since_id", since);
+		// Execute the Request
+		getClient().get(apiUrl, params, handler);
+	}
+
+	public void getUserTimeline(String screenName, AsyncHttpResponseHandler handler, int count, int since) {
+
+		String apiUrl = getApiUrl("statuses/user_timeline.json");
+		RequestParams params = new RequestParams();
+		params.put("count", count);
+		params.put("since_id", since);
+		params.put("screen_name", screenName);
 		getClient().get(apiUrl, params, handler);
 	}
 
@@ -58,6 +78,8 @@ public class TwitterClient extends OAuthBaseClient {
 		params.put("status", message);
 		getClient().post(apiUrl, params, handler);
 	}
+
+
 
 
 

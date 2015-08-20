@@ -1,0 +1,175 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.codepath.apps.twitterclient.activities.ProfileActitivity">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="205dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/rlUserInfo">
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="120dp"
+            android:id="@+id/ivBanner"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/ivProfile"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="31dp"
+            android:src="@drawable/ic_profile_clicked"
+            android:layout_alignBottom="@+id/ivBanner"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="15dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Yu Tu"
+            android:id="@+id/tvUserName"
+            android:singleLine="true"
+            android:textColor="#111111"
+            android:layout_below="@+id/ivProfile"
+            android:layout_alignLeft="@+id/ivProfile"
+            android:layout_alignStart="@+id/ivProfile" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="\@tantofish"
+            android:id="@+id/tvName"
+            android:layout_below="@+id/tvUserName"
+            android:layout_alignLeft="@+id/tvUserName"
+            android:layout_alignStart="@+id/tvUserName"
+            android:textSize="10sp" />
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:id="@+id/ivLocationIcon"
+            android:layout_below="@+id/tvName"
+            android:layout_alignLeft="@+id/tvName"
+            android:layout_alignStart="@+id/tvName"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/ic_location"
+            android:layout_marginRight="5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Taipei City, Taiwan"
+            android:id="@+id/tvLocation"
+            android:layout_toRightOf="@+id/ivLocationIcon"
+            android:layout_toEndOf="@+id/ivLocationIcon"
+            android:layout_alignBottom="@+id/ivLocationIcon"
+            android:textColor="@color/gray4" />
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:id="@+id/ivLinkIcon"
+            android:src="@drawable/ic_link"
+            android:layout_alignTop="@+id/tvLocation"
+            android:layout_toRightOf="@+id/tvLocation"
+            android:layout_toEndOf="@+id/ivLocationIcon"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="github.com/tantofish"
+            android:id="@+id/tvDisplayUrl"
+            android:layout_toRightOf="@+id/ivLinkIcon"
+            android:layout_toEndOf="@+id/ivLinkIcon"
+            android:textColor="@color/twitter_blue_d"
+            android:layout_alignBottom="@+id/ivLinkIcon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="9"
+            android:id="@+id/tvFriendsCount"
+            android:layout_below="@+id/tvLocation"
+            android:layout_alignLeft="@+id/tvName"
+            android:layout_alignStart="@+id/tvName"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:textColor="@color/gray5" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Following"
+            android:id="@+id/ivFriends"
+            android:textSize="12sp"
+            android:layout_alignTop="@+id/tvFriendsCount"
+            android:layout_toRightOf="@+id/tvFriendsCount"
+            android:layout_toEndOf="@+id/tvFriendsCount"
+            android:textColor="@color/gray4" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="5"
+            android:id="@+id/tvFollowersCount"
+            android:layout_alignTop="@+id/ivFriends"
+            android:layout_toRightOf="@+id/ivFriends"
+            android:layout_toEndOf="@+id/ivFriends"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="5dp"
+            android:textColor="@color/gray5" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Followers"
+            android:id="@+id/tvFollowers"
+            android:textSize="12sp"
+            android:layout_alignTop="@+id/tvFollowersCount"
+            android:layout_toRightOf="@+id/tvFollowersCount"
+            android:layout_toEndOf="@+id/tvFollowersCount"
+            android:textColor="@color/gray4" />
+
+        <View
+            android:id="@+id/ruler"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#B1B1B1"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="10dp"/>
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rlUserInfo"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/flContainer"></FrameLayout>
+</RelativeLayout>
